@@ -1,0 +1,56 @@
+3. Write an SQL statement to create a table named jobs including columns
+job_id, job_title, min_salary, max_salary and check whether the
+max_salary amount exceeding the upper limit 25000. Also set job_id as
+primary key and entering null values for job_title is not allowed.
+
+
+
+mysql> create table jobs
+    -> ( job_id int primary key,
+    -> job_title varchar(20) not null,
+    -> min_salary int ,
+    -> max_salary int , check (max_salary<=25000));
+Query OK, 0 rows affected (0.20 sec)
+
+
+mysql> show tables;
++------------------+
+| Tables_in_june23 |
++------------------+
+| books            |
+| countries        |
+| employee         |
+| jobs             |
+| student          |
++------------------+
+5 rows in set (0.04 sec)
+
+mysql> desc jobs;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | int         | NO   | PRI | NULL    |       |
+| job_title  | varchar(20) | NO   |     | NULL    |       |
+| min_salary | int         | YES  |     | NULL    |       |
+| max_salary | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table jobs
+    -> ;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into jobs (job_id, job_title,min_salary,max_salary)value(1, 'manager', 15000, 20000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from jobs;
++--------+-----------+------------+------------+
+| job_id | job_title | min_salary | max_salary |
++--------+-----------+------------+------------+
+|      1 | manager   |      15000 |      20000 |
++--------+-----------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> insert into jobs (job_id, job_title,min_salary,max_salary)value(1, 'manager', 15000, 30000);
+ERROR 3819 (HY000): Check constraint 'jobs_chk_1' is violated.
+mysql>
